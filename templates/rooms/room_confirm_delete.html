@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+        <div class="card shadow border-danger">
+
+            <div class="card-header bg-danger text-white">
+
+                <h3>Delete Room</h3>
+
+            </div>
+
+            <div class="card-body text-center">
+
+                {% if room.image %}
+
+                    <img src="{{ room.image.url }}"
+                         class="img-thumbnail mb-3"
+                         alt="Room Image"
+                         width="200">
+
+                {% endif %}
+
+                <h4>Room {{ room.room_number }}</h4>
+
+                <p><strong>Type:</strong> {{ room.room_type }}</p>
+
+                <p><strong>Price:</strong> ₹{{ room.price }}</p>
+
+                <p class="text-danger">
+
+                    Are you sure you want to delete this room?
+
+                </p>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger">
+
+                        Yes, Delete
+
+                    </button>
+
+                    <a href="{% url 'room_list' %}"
+                       class="btn btn-secondary">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

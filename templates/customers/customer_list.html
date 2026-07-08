@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Customers</h2>
+
+        <a href="{% url 'create_customer' %}" class="btn btn-success">
+            Add Customer
+        </a>
+    </div>
+
+    <!-- Search Form -->
+    <form method="GET" class="mb-3">
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                class="form-control"
+                name="search"
+                value="{{ search }}"
+                placeholder="Search Name, Email or Phone">
+
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+
+        </div>
+
+    </form>
+
+    <!-- Customer Table -->
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover table-striped">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Nationality</th>
+                    <th class="text-center" width="180">Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for customer in page_obj %}
+
+                <tr>
+
+                    <td>{{ customer.full_name }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phone }}</td>
+                    <td>{{ customer.gender }}</td>
+                    <td>{{ customer.nationality }}</td>
+
+                    <td class="text-center">
+
+                        <a href="{% url 'update_customer' customer.pk %}"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'delete_customer' customer.pk %}"
+                           class="btn btn-danger btn-sm">
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="6" class="text-center">
+                        No Customers Found
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Pagination -->
+    <nav class="d-flex justify-content-center">
+
+        <ul class="pagination">
+
+            {% if page_obj.has_previous %}
+
+                <li class="page-item">
+
+                    <a class="page-link"
+                       href="?page={{ page_obj.previous_page_number }}&search={{ search }}">
+                        Previous
+                    </a>
+
+                </li>
+
+            {% endif %}
+
+            <li class="page-item active">
+
+                <span class="page-link">
+                    {{ page_obj.number }}
+                </span>
+
+            </li>
+
+            {% if page_obj.has_next %}
+
+                <li class="page-item">
+
+                    <a class="page-link"
+                       href="?page={{ page_obj.next_page_number }}&search={{ search }}">
+                        Next
+                    </a>
+
+                </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+</div>
+
+{% endblock %}

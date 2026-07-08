@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        Dashboard
+    </h2>
+
+    <!-- ================= First Row ================= -->
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="card bg-primary text-white mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Total Rooms</h5>
+                    <h2>{{ total_rooms }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Available Rooms</h5>
+                    <h2>{{ available_rooms }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-danger text-white mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Occupied Rooms</h5>
+                    <h2>{{ occupied_rooms }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Total Revenue</h5>
+                    <h2>₹{{ total_revenue }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= Second Row ================= -->
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Total Customers</h5>
+                    <h2>{{ total_customers }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Total Bookings</h5>
+                    <h2>{{ total_bookings }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Today's Check-In</h5>
+                    <h2>{{ today_checkins }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= Third Row ================= -->
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Today's Check-Out</h5>
+                    <h2>{{ today_checkouts }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Pending Payments</h5>
+                    <h2>{{ pending_payments }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-info text-white mb-3 shadow">
+                <div class="card-body text-center">
+                    <h5>Occupancy Rate</h5>
+                    <h2>{{ occupancy_rate }}%</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <!-- ================= Forth Row ================= -->
+    <div class="row g-3 mb-4">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm border-0 bg-primary text-white">
+            <div class="card-body text-center">
+                <h2>{{ todays_logins }}</h2>
+                <h6>Today's Logins</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm border-0 bg-danger text-white">
+            <div class="card-body text-center">
+                <h2>{{ failed_logins }}</h2>
+                <h6>Failed Logins</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm border-0 bg-warning text-dark">
+            <div class="card-body text-center">
+                <h2>{{ room_updates }}</h2>
+                <h6>Room Updates</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm border-0 bg-success text-white">
+            <div class="card-body text-center">
+                <h2>{{ booking_updates }}</h2>
+                <h6>Booking Updates</h6>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <!-- ================= Bottom Section ================= -->
+    <div class="row mt-4">
+
+        <!-- Top Customers -->
+        <div class="col-lg-4">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Top Customers</h5>
+                </div>
+
+                <ul class="list-group list-group-flush">
+
+                    {% for customer in top_customers %}
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                        <span>{{ customer.full_name }}</span>
+
+                        <span class="badge bg-primary rounded-pill">
+                            {{ customer.total_bookings }}
+                        </span>
+
+                    </li>
+
+                    {% empty %}
+
+                    <li class="list-group-item text-center">
+                        No customer data available.
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Bookings -->
+        <div class="col-lg-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Recent Bookings</h5>
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover table-bordered mb-0">
+
+                        <thead class="table-light">
+
+                            <tr>
+                                <th>Customer</th>
+                                <th>Room</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for booking in recent_bookings %}
+
+                            <tr>
+
+                                <td>{{ booking.customer.full_name }}</td>
+
+                                <td>{{ booking.room.room_number }}</td>
+
+                                <td>{{ booking.check_in }}</td>
+
+                                <td>{{ booking.check_out }}</td>
+
+                                <td>
+
+                                    {% if booking.booking_status == "Booked" %}
+                                        <span class="badge bg-primary">
+                                            Booked
+                                        </span>
+
+                                    {% elif booking.booking_status == "Checked In" %}
+                                        <span class="badge bg-success">
+                                            Checked In
+                                        </span>
+
+                                    {% elif booking.booking_status == "Checked Out" %}
+                                        <span class="badge bg-secondary">
+                                            Checked Out
+                                        </span>
+
+                                    {% else %}
+                                        <span class="badge bg-danger">
+                                            Cancelled
+                                        </span>
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                            {% empty %}
+
+                            <tr>
+
+                                <td colspan="5" class="text-center">
+                                    No recent bookings available.
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

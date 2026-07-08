@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>Bookings</h2>
+
+        <a href="{% url 'create_booking' %}" class="btn btn-success">
+            New Booking
+        </a>
+
+    </div>
+
+    <!-- Search -->
+    <form method="GET" class="mb-3">
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                class="form-control"
+                placeholder="Search Customer, Room or Status">
+
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+
+        </div>
+
+    </form>
+
+    <!-- Booking Table -->
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover table-striped">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Customer</th>
+                    <th>Room</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th class="text-center" width="180">Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for booking in page_obj %}
+
+                <tr>
+
+                    <td>{{ booking.customer.full_name }}</td>
+
+                    <td>{{ booking.room.room_number }}</td>
+
+                    <td>{{ booking.check_in }}</td>
+
+                    <td>{{ booking.check_out }}</td>
+
+                    <td>
+
+                        {% if booking.booking_status == "Booked" %}
+
+                            <span class="badge bg-primary">
+                                Booked
+                            </span>
+
+                        {% elif booking.booking_status == "Checked In" %}
+
+                            <span class="badge bg-success">
+                                Checked In
+                            </span>
+
+                        {% elif booking.booking_status == "Checked Out" %}
+
+                            <span class="badge bg-secondary">
+                                Checked Out
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                Cancelled
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if booking.payment_status == "Paid" %}
+
+                            <span class="badge bg-success">
+                                Paid
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-warning text-dark">
+                                Pending
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td class="text-center">
+
+                        <a href="{% url 'update_booking' booking.pk %}"
+                           class="btn btn-warning btn-sm me-1">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'delete_booking' booking.pk %}"
+                           class="btn btn-danger btn-sm">
+                            Cancel
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="7" class="text-center">
+                        No Bookings Found
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Pagination -->
+    <nav class="d-flex justify-content-center">
+
+        <ul class="pagination">
+
+            {% if page_obj.has_previous %}
+
+                <li class="page-item">
+
+                    <a class="page-link"
+                       href="?page={{ page_obj.previous_page_number }}&search={{ search }}">
+                        Previous
+                    </a>
+
+                </li>
+
+            {% endif %}
+
+            <li class="page-item active">
+
+                <span class="page-link">
+                    {{ page_obj.number }}
+                </span>
+
+            </li>
+
+            {% if page_obj.has_next %}
+
+                <li class="page-item">
+
+                    <a class="page-link"
+                       href="?page={{ page_obj.next_page_number }}&search={{ search }}">
+                        Next
+                    </a>
+
+                </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+</div>
+
+{% endblock %}

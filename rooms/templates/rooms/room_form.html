@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-primary text-white">
+
+                <h3>{{ title }}</h3>
+
+            </div>
+
+            <div class="card-body">
+
+                <form method="POST"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    {% if room.image %}
+
+                    <div class="mb-3">
+
+                        <label>Current Image</label>
+
+                        <br>
+
+                        <img src="{{ room.image.url }}"
+                             width="180"
+                             class="img-thumbnail"
+                             alt="Current room image">
+
+                    </div>
+
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-success">
+
+                        Save
+
+                    </button>
+
+                    <a href="{% url 'room_list' %}"
+                       class="btn btn-secondary">
+
+                        Back
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

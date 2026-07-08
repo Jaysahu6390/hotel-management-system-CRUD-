@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>Payments</h2>
+
+        <a href="{% url 'create_payment' %}"
+            class="btn btn-success">
+            Add Payment
+        </a>
+
+    </div>
+
+    <!-- Search Form -->
+
+    <form method="GET" class="mb-3">
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                class="form-control"
+                placeholder="Search Invoice, Customer or Room">
+
+            <button type="submit"
+                    class="btn btn-primary">
+
+                Search
+
+            </button>
+
+        </div>
+
+    </form>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Invoice</th>
+
+                    <th>Customer</th>
+
+                    <th>Room</th>
+
+                    <th>Amount</th>
+
+                    <th>Method</th>
+
+                    <th>Date</th>
+
+                    <th width="260">
+
+                        Actions
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for payment in page_obj %}
+
+                <tr>
+
+                    <td>
+
+                        {{ payment.invoice_number }}
+
+                    </td>
+
+                    <td>
+
+                        {{ payment.booking.customer.full_name }}
+
+                    </td>
+
+                    <td>
+
+                        {{ payment.booking.room.room_number }}
+
+                    </td>
+
+                    <td>
+
+                        ₹{{ payment.amount }}
+
+                    </td>
+
+                    <td>
+
+                        {{ payment.payment_method }}
+
+                    </td>
+
+                    <td>
+
+                        {{ payment.payment_date }}
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="{% url 'update_payment' payment.id %}"
+                            class="btn btn-warning btn-sm">
+
+                            Edit
+
+                        </a>
+
+                        <a
+                            href="{% url 'delete_payment' payment.id %}"
+                            class="btn btn-danger btn-sm">
+
+                            Delete
+
+                        </a>
+
+                        <a
+                            href="{% url 'generate_invoice' payment.id %}"
+                            class="btn btn-primary btn-sm">
+
+                            Invoice
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="7" class="text-center">
+
+                        No Payments Found.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Pagination -->
+
+    <nav>
+
+        <ul class="pagination">
+
+            {% if page_obj.has_previous %}
+
+            <li class="page-item">
+
+                <a
+                    class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}&search={{ search }}">
+
+                    Previous
+
+                </a>
+
+            </li>
+
+            {% endif %}
+
+            <li class="page-item active">
+
+                <span class="page-link">
+
+                    {{ page_obj.number }}
+
+                </span>
+
+            </li>
+
+            {% if page_obj.has_next %}
+
+            <li class="page-item">
+
+                <a
+                    class="page-link"
+                    href="?page={{ page_obj.next_page_number }}&search={{ search }}">
+
+                    Next
+
+                </a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+</div>
+
+{% endblock %}

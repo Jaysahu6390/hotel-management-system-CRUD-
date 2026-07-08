@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Booking Cancelled</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<h2>Booking Cancelled</h2>
+
+<p>Hello {{ booking.customer.full_name }},</p>
+
+<p>Your booking has been cancelled successfully.</p>
+
+<table border="1" cellpadding="8">
+
+<tr>
+    <td>Room</td>
+    <td>{{ booking.room.room_number }}</td>
+</tr>
+
+<tr>
+    <td>Check In</td>
+    <td>{{ booking.check_in }}</td>
+</tr>
+
+<tr>
+    <td>Check Out</td>
+    <td>{{ booking.check_out }}</td>
+</tr>
+
+</table>
+
+<p>Thank you for choosing our hotel.</p>
+
+</body>
+
+</html>

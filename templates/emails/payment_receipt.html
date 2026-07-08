@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment Recipt</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>
+        Payment Received Successfully
+    </h2>
+
+    <p>
+        Dear <strong>{{ booking.customer.full_name }}</strong>,
+    </p>
+
+    <p>
+        Thank you for your payment. Your payment has been received successfully.
+    </p>
+
+    <hr>
+
+    <h3>Payment Details</h3>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+
+        <tr>
+            <td><strong>Invoice Number</strong></td>
+            <td>{{ payment.invoice_number }}</td>
+        </tr>
+
+        <tr>
+            <td><strong>Amount Paid</strong></td>
+            <td>₹ {{ payment.amount }}</td>
+        </tr>
+
+        <tr>
+            <td><strong>Payment Method</strong></td>
+            <td>{{ payment.payment_method }}</td>
+        </tr>
+
+        <tr>
+            <td><strong>Payment Date</strong></td>
+            <td>{{ payment.payment_date }}</td>
+        </tr>
+
+    </table>
+
+    <br>
+
+    <h3>Booking Details</h3>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+
+        <tr>
+            <td><strong>Room Number</strong></td>
+            <td>{{ booking.room.room_number }}</td>
+        </tr>
+
+        <tr>
+            <td><strong>Room Type</strong></td>
+            <td>{{ booking.room.room_type }}</td>
+        </tr>
+
+        <tr>
+            <td><strong>Check-In</strong></td>
+            <td>{{ booking.check_in }}</td>
+        </tr>
+
+        <tr>
+            <td><strong>Check-Out</strong></td>
+            <td>{{ booking.check_out }}</td>
+        </tr>
+
+    </table>
+
+    <br>
+
+    <p>
+        Your invoice has been attached as a PDF with this email.
+    </p>
+
+    <br>
+
+    <p>
+        Thank you for choosing our hotel.
+    </p>
+
+    <p>
+        <strong>Hotel Management System</strong>
+    </p>
+
+</body>
+
+</html>

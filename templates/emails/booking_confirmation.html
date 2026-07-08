@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Confirmation</title>
+</head>
+<body>
+
+<h2>Booking Confirmation</h2>
+
+<p>Dear {{ customer.full_name }},</p>
+
+<p>Your booking has been confirmed successfully.</p>
+
+<table border ="1" cellpadding="8">
+
+<tr>
+<td>Room</td>
+<td>{{ room.room_number }}</td>
+</tr>
+
+<tr>
+<td>Check In</td>
+<td>{{ booking.check_in }}</td>
+</tr>
+
+<tr>
+<td>Check Out</td>
+<td>{{ booking.check_out }}</td>
+</tr>
+
+<tr>
+<td>Status</td>
+<td>{{ booking.booking_status }}</td>
+</tr>
+
+</table>
+
+<p>Thank you for choosing our hotel.</p>
+
+</body>
+</html>

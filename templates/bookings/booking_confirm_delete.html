@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+<div class="col-md-6">
+
+<div class="card shadow border-danger">
+
+<div class="card-header bg-danger text-white">
+
+<h3>
+
+Cancel Booking
+
+</h3>
+
+</div>
+
+<div class="card-body">
+
+<p>
+
+<strong>Customer:</strong>
+
+{{ booking.customer.full_name }}
+
+</p>
+
+<p>
+
+<strong>Room:</strong>
+
+{{ booking.room.room_number }}
+
+</p>
+
+<p>
+
+<strong>Check In:</strong>
+
+{{ booking.check_in }}
+
+</p>
+
+<p>
+
+<strong>Check Out:</strong>
+
+{{ booking.check_out }}
+
+</p>
+
+<div class="alert alert-warning">
+
+Are you sure you want to cancel this booking?
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<button type = "submit"
+
+class="btn btn-danger">
+
+Yes, Cancel Booking
+
+</button>
+
+<a
+
+href="{% url 'booking_list' %}"
+
+class="btn btn-secondary">
+
+Back
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
